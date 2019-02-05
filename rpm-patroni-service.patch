@@ -1,0 +1,23 @@
+--- extras/startup-scripts/patroni.service	2019-01-15 12:14:19.000000000 +0100
++++ extras/startup-scripts/patroni.rpm.service	2019-02-05 09:18:50.884695737 +0100
+@@ -12,9 +12,9 @@
+ Group=postgres
+ 
+ # Read in configuration file if it exists, otherwise proceed
+-EnvironmentFile=-/etc/patroni_env.conf
++EnvironmentFile=-/etc/patroni/patroni_env.conf
+ 
+-WorkingDirectory=~
++WorkingDirectory=/var/run/postgresql
+ 
+ # Where to send early-startup messages from the server
+ # This is normally controlled by the global default set by systemd
+@@ -26,7 +26,7 @@
+ #ExecStartPre=-/usr/bin/sudo /bin/chown postgres /dev/watchdog
+ 
+ # Start the patroni process
+-ExecStart=/bin/patroni /etc/patroni.yml
++# ExecStart=/bin/patroni /etc/patroni/patroni.yml
+ 
+ # Send HUP to reload from patroni.yml
+ ExecReload=/bin/kill -s HUP $MAINPID

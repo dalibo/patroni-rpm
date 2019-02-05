@@ -1,0 +1,10 @@
+.include /lib/systemd/system/patroni.service
+
+[Service]
+PermissionsStartOnly=true
+
+ExecStartPre=/sbin/modprobe softdog
+ExecStartPre=/bin/chown postgres /dev/watchdog
+
+# Start the patroni process
+ExecStart=/bin/patroni /etc/patroni/patroni.yml

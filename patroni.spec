@@ -1,5 +1,5 @@
 %global pkgname patroni
-%{!?pkgrevision: %global pkgrevision 1}
+%{!?pkgrevision: %global pkgrevision 3}
 %{!?patronidcs: %global patronidcs "etcd"}
 %define INSTALLPATH /opt/patroni
 
@@ -39,7 +39,6 @@ mv requirements-new.txt requirements.txt
 
 %{buildroot}%{INSTALLPATH}/bin/pip install -U setuptools
 %{buildroot}%{INSTALLPATH}/bin/pip install .[%{patronidcs}]
-%{buildroot}%{INSTALLPATH}/bin/pip uninstall setuptools -y
 %{buildroot}%{INSTALLPATH}/bin/pip uninstall pip -y
 
 virtualenv --relocatable %{buildroot}%{INSTALLPATH}
@@ -64,11 +63,17 @@ cp -r extras/ %{buildroot}/usr/share/patroni
     patronictl %{INSTALLPATH}/bin/patronictl 10
 
 %postun
-%{_sbindir}/update-alternatives --remove \
-    patroni %{INSTALLPATH}/bin/patroni
-%{_sbindir}/update-alternatives --remove \
-    patronictl %{INSTALLPATH}/bin/patronictl
+if [ $1 -eq 0 ] ; then
+  %{_sbindir}/update-alternatives --remove \
+      patroni %{INSTALLPATH}/bin/patroni
+  %{_sbindir}/update-alternatives --remove \
+      patronictl %{INSTALLPATH}/bin/patronictl
+fi
 
 %changelog
-* Sat Feb 02 2019 Julien Tachoires <julmon@gmail.com> - %{pkgversion}-%{pkgrevision}
+* Tue Feb 28 2019 Julien Tachoires <julmon@gmail.com> - 1.5.5-3
+- Ship a decent version of setuptools
+- Fix upgrade process to keep alternative scripts in /usr/bin and /bin
+
+* Sat Feb 02 2019 Julien Tachoires <julmon@gmail.com> - 1.5.4-1
 - Initial release

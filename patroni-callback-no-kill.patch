@@ -1,0 +1,20 @@
+diff --git a/patroni/callback_executor.py b/patroni/callback_executor.py
+index 718af67..5d323ad 100644
+--- a/patroni/callback_executor.py
++++ b/patroni/callback_executor.py
+@@ -19,8 +19,13 @@ class CallbackExecutor(Thread):
+     def call(self, cmd):
+         with self._lock:
+             if self._process and self._process.poll() is None:
+-                self._process.kill()
+-                logger.warning('Killed the old callback process because it was still running: %s', self._cmd)
++                try:
++                    self._process.kill()
++                    logger.warning('Killed the old callback process because it was still running: %s', self._cmd)
++                except OSError:
++                    logger.exception('Failed to kill the old callback')
++                    logger.warning('Start to wait until callback end')
++                    self._process.wait()
+         self._cmd = cmd
+         self._callback_event.set()
+ 

@@ -1,5 +1,5 @@
 %global pkgname patroni
-%{!?pkgrevision: %global pkgrevision 4}
+%{!?pkgrevision: %global pkgrevision 1}
 %{!?patronidcs: %global patronidcs "etcd"}
 %define INSTALLPATH /opt/patroni
 
@@ -11,7 +11,6 @@ License:       MIT
 Source0:       %{pkgname}-%{version}.tar.gz
 Source1:       patroni.service
 Patch0:        rpm-patroni-service.patch
-Patch1:        patroni-callback-no-kill.patch
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:      python-psycopg2 >= 2.5.4, PyYAML, python-requests, python-six >= 1.7, python-prettytable >= 0.7, python-dateutil, postgresql-server
 Requires(post):   %{_sbindir}/update-alternatives
@@ -23,7 +22,6 @@ A template for PostgreSQL High Availability with ZooKeeper, etcd, or Consul
 %prep
 %setup -q -n %{pkgname}-%{version}
 %patch0 -p0
-%patch1 -p1
 
 %build
 
@@ -73,6 +71,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Mon May 06 2019 Julien Tachoires <julmon@gmail.com> - 1.5.6-1
+- Version 1.5.6
+
 * Fri Mar 01 2019 Julien Tachoires <julmon@gmail.com> - 1.5.5-4
 - Include patch on callback kill when it failed
 

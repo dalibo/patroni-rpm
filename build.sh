@@ -1,7 +1,7 @@
 #!/bin/bash -eux
 
 # Patroni version
-VERSION="1.5.5"
+VERSION="1.5.6"
 # DCS list, comma separated
 # Values: etcd,aws,exhibitor,zookeeper,kubernetes,consul
 # WARNING: consul support seems to be broken

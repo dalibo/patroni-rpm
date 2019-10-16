@@ -12,7 +12,7 @@ Source0:       %{pkgname}-%{version}.tar.gz
 Source1:       patroni.service
 Patch0:        rpm-patroni-service.patch
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:      python-psycopg2 >= 2.5.4, PyYAML, python-requests, python-six >= 1.7, python-prettytable >= 0.7, python-dateutil, postgresql-server
+Requires:      python-psycopg2 >= 2.5.4, PyYAML, python-requests, python-six >= 1.7, python-prettytable >= 0.7, python-dateutil
 Requires(post):   %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
 
@@ -71,6 +71,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Wed Oct 09 2019 Julien Tachoires <julmon@gmail.com> - 1.6.0-1
+- Version 1.6.0
+
 * Mon May 06 2019 Julien Tachoires <julmon@gmail.com> - 1.5.6-1
 - Version 1.5.6
 

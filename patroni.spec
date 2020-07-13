@@ -71,6 +71,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Mon Jul 13 2020 Nicolas Thauvin <nicolas.thauvin@dalibo.com> - 1.6.5-1
+- Version 1.6.5
+
 * Wed Oct 09 2019 Julien Tachoires <julmon@gmail.com> - 1.6.0-1
 - Version 1.6.0
 
